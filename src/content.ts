@@ -88,13 +88,13 @@ const STYLE = `
     z-index: 2147483647; box-sizing: border-box; padding: 36px 32px;
     border-radius: 40px; color: #fff; font-family: system-ui, sans-serif;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
-    background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.12));
-    backdrop-filter: url(#glass);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    background: rgba(28, 31, 44, 0.3);
+    backdrop-filter: blur(20px) url(#glass) saturate(1.3);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
   .panel::after {
     content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.6));
+    background: linear-gradient(135deg, rgba(255,255,255,0.24), rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.13));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
   }
