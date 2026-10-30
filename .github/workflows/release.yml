@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: 태그와 manifest 버전 확인
+        run: |
+          version="v$(node -p "require('./public/manifest.json').version")"
+          if [ "$version" != "$GITHUB_REF_NAME" ]; then
+            echo "태그($GITHUB_REF_NAME)와 manifest 버전($version)이 다릅니다."
+            exit 1
+          fi
+      - run: npm ci
+      - run: npm run build
+      - name: dist 압축
+        run: cd dist && zip -r "../why-do-this-$GITHUB_REF_NAME.zip" .
+      - name: Release 생성
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" "why-do-this-$GITHUB_REF_NAME.zip" --title "$GITHUB_REF_NAME" --generate-notes
