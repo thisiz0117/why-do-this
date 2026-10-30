@@ -4,12 +4,59 @@
     <meta charset="UTF-8" />
     <title>Why Do This</title>
     <style>
-      body { width: 240px; margin: 12px; font-family: system-ui, sans-serif; }
+      html, body { margin: 0; width: 360px; height: 480px; overflow: hidden; background: #0b0d1a; font-family: system-ui, sans-serif; color: #fff; }
+      svg { position: absolute; inset: 0; }
+      .content { position: relative; padding: 36px 32px; }
     </style>
   </head>
   <body>
-    <h3>Why Do This</h3>
-    <p id="status">로딩 중...</p>
+    <svg width="360" height="480" viewBox="0 0 360 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="blobA"><stop offset="0" stop-color="#ff5fa2"/><stop offset="1" stop-color="#ff5fa2" stop-opacity="0"/></radialGradient>
+        <radialGradient id="blobB"><stop offset="0" stop-color="#3ec6ff"/><stop offset="1" stop-color="#3ec6ff" stop-opacity="0"/></radialGradient>
+        <radialGradient id="blobC"><stop offset="0" stop-color="#ffd25f"/><stop offset="1" stop-color="#ffd25f" stop-opacity="0"/></radialGradient>
+        <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity="0.9"/>
+          <stop offset="0.5" stop-color="#fff" stop-opacity="0.08"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity="0.28"/>
+          <stop offset="0.45" stop-color="#fff" stop-opacity="0.05"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0.12"/>
+        </linearGradient>
+        <g id="scene">
+          <rect width="360" height="480" fill="#0b0d1a"/>
+          <circle cx="60" cy="90" r="190" fill="url(#blobA)"/>
+          <circle cx="320" cy="200" r="200" fill="url(#blobB)"/>
+          <circle cx="140" cy="440" r="210" fill="url(#blobC)"/>
+          <path d="M-20 300 C 90 220 220 380 380 280" stroke="#fff" stroke-opacity="0.55" stroke-width="10" fill="none"/>
+        </g>
+        <clipPath id="panel"><rect x="14" y="14" width="332" height="452" rx="40"/></clipPath>
+        <filter id="glass" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="map"/>
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="soft"/>
+          <feColorMatrix in="soft" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r0"/>
+          <feColorMatrix in="soft" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g0"/>
+          <feColorMatrix in="soft" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b0"/>
+          <feDisplacementMap in="r0" in2="map" scale="64" xChannelSelector="R" yChannelSelector="G" result="r1"/>
+          <feDisplacementMap in="g0" in2="map" scale="48" xChannelSelector="R" yChannelSelector="G" result="g1"/>
+          <feDisplacementMap in="b0" in2="map" scale="32" xChannelSelector="R" yChannelSelector="G" result="b1"/>
+          <feBlend in="r1" in2="g1" mode="screen" result="rg"/>
+          <feBlend in="rg" in2="b1" mode="screen"/>
+        </filter>
+      </defs>
+      <use href="#scene"/>
+      <g clip-path="url(#panel)">
+        <use href="#scene" filter="url(#glass)"/>
+        <rect x="14" y="14" width="332" height="452" fill="url(#sheen)"/>
+      </g>
+      <rect x="14.75" y="14.75" width="330.5" height="450.5" rx="39.25" fill="none" stroke="url(#rim)" stroke-width="1.5"/>
+    </svg>
+    <div class="content">
+      <h3>Why Do This</h3>
+      <p id="status">로딩 중...</p>
+    </div>
     <script type="module" src="popup.js"></script>
   </body>
 </html>
