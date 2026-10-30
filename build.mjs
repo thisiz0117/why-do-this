@@ -7,7 +7,6 @@ const options = {
   entryPoints: {
     background: "src/background.ts",
     content: "src/content.ts",
-    popup: "src/popup.ts",
   },
   outdir: "dist",
   bundle: true,

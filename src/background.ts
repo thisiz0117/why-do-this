@@ -1,3 +1,3 @@
-chrome.runtime.onInstalled.addListener(() => {
-  console.log("[why-do-this] installed");
+chrome.action.onClicked.addListener((tab) => {
+  if (tab.id !== undefined) chrome.tabs.sendMessage(tab.id, "toggle");
 });

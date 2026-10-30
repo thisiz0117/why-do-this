@@ -37,3 +37,13 @@
 ### 남은 일
 - PR #7(`develop` → `main`)이 먼저 머지돼야 이 브랜치의 PR이 깔끔하다. 이 브랜치가 `develop`에서 갈라져 있어 #7의 커밋 2개를 포함한다.
 - 원격 `develop` 브랜치 정리(삭제 여부는 사용자가 결정).
+
+## 팝업을 웹사이트 위 오버레이 패널로 전환 (#10, 브랜치 `feat/10-overlay-panel`)
+
+- 액션 팝업은 별도 창이라 뒤의 웹사이트가 비치지 않아, 패널을 content script로 페이지 위에 직접 그리도록 바꿨다.
+- `background.ts`: `chrome.action.onClicked`에서 활성 탭의 content script로 토글 메시지를 보낸다.
+- `content.ts`: 메시지를 받으면 Shadow DOM 호스트를 `documentElement`에 붙이거나 떼서 패널을 열고 닫는다. 패널은 `backdrop-filter: url(#glass)`로 뒤의 페이지를 굴절시키고, 광택·그라디언트 테두리·그림자는 CSS로 구현했다. 굴절 맵 생성 코드는 `popup.ts`에서 옮겼다.
+- 굴절 맵 반경을 CSS `border-radius`(40px)에 맞췄다. (기존엔 맵 60, 모서리 40으로 어긋나 있었다.)
+- `popup.html`, `popup.ts`, `manifest.json`의 `default_popup`, `build.mjs`의 popup 엔트리를 제거했다. 테스트용 배경 장면은 옮기지 않았다.
+- 확인: `npm run build` 통과. 줄무늬 배경의 로컬 테스트 페이지에 번들 `content.js`를 로드해 패널 표시와 굴절을 눈으로 확인했다. 실제 확장으로 YouTube/Instagram에 올려 아이콘 클릭 토글하는 것은 확인하지 못했다.
+- 커밋·PR은 최종 허가 전이라 하지 않았다.
