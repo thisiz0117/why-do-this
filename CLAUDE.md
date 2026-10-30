@@ -7,7 +7,7 @@ PC Chrome에서 YouTube/Instagram에 의미 없이 접속해 시간을 낭비하
 
 1. **최소 코드**: 지시 사항에 부합하는 최소한의 코드만 작성한다.
 2. **확장성 금지**: 대비할 필요 없는 확장성은 고려하지 않는다. 추상화·옵션·설정은 지금 필요할 때만 추가한다.
-3. **git flow**: 배포 파일이 아닌 이상 모든 작업은 `develop`에서 한다. `main`은 배포용이다.
+3. **TBD(trunk-based development)**: `develop` 없이 `main`을 기준으로 한다. 작업은 `main`에서 딴 단기 브랜치(`feat/<이슈번호>-<설명>`)에서 하고, PR은 `main`으로 올린다.
 4. **이슈 우선**: 모든 작업 전에 이슈부터 작성한다. 사용자가 이슈를 검토하고 통과시켜야 개발을 시작한다.
 5. **최종 허가 후 커밋·PR**: 개발이 끝나면 먼저 결과를 보고하고 사용자의 최종 허가를 받는다. 허가 없이 커밋하거나 PR을 올리지 않는다.
 6. **디자인**: Apple 리퀴드 글라스 스타일을 모방한다 (반투명 유리 질감, 배경 블러, 얇은 하이라이트 테두리, 둥근 모서리, 부드러운 그림자).
@@ -26,6 +26,8 @@ PC Chrome에서 YouTube/Instagram에 의미 없이 접속해 시간을 낭비하
 - `src/popup.ts` — 액션 팝업
 - `public/` — `manifest.json`, `popup.html` 등 정적 파일 (빌드 시 `dist/`로 복사)
 - `build.mjs` — esbuild 빌드 스크립트
+- `.github/workflows/release.yml` — 태그 기반 배포
+- `docs/work-log.md` — 작업 로그 (어떤 작업을 어떻게 했는지 기록)
 
 ## 명령어
 
@@ -41,7 +43,10 @@ PC Chrome에서 YouTube/Instagram에 의미 없이 접속해 시간을 낭비하
 ## Git / 이슈 / PR
 
 - 원격: `origin` = `https://github.com/thisiz0117/why-do-this.git`
-- 흐름: 이슈 작성 → 사용자 통과 → `develop`에서 개발 → 커밋 → PR
+- 흐름: 이슈 작성 → 사용자 통과 → `main`에서 `feat/*` 브랜치를 따 개발 → 최종 허가 → 커밋 → `main`으로 PR
+- PR 본문에 `Closes #이슈번호`를 넣는다. (`main`이 기본 브랜치라 머지 시 이슈가 닫힌다.)
+- 머지는 리베이스 머지로 통일하고, 머지된 브랜치는 삭제한다.
+- 배포: `main`에서 `manifest.json`의 `version`과 같은 `vX.Y.Z` 태그를 푸시하면 GitHub Actions(`.github/workflows/release.yml`)가 `dist/` zip을 Release로 올린다. Chrome 웹 스토어 업로드는 사용자가 직접 한다.
 - 커밋 메시지·PR 설명은 한국어로, 변경 내용을 간결하게 쓴다.
 - 커밋 메시지와 PR 설명에 `Co-Authored-By`, `Generated with Claude Code` 같은 Claude 서명 문구를 넣지 않는다. (기본 attribution 설정보다 우선한다.)
 - `dist/`, `node_modules`는 커밋하지 않는다.
