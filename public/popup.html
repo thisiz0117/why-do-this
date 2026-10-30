@@ -31,17 +31,18 @@
           <circle cx="320" cy="200" r="200" fill="url(#blobB)"/>
           <circle cx="140" cy="440" r="210" fill="url(#blobC)"/>
           <path d="M-20 300 C 90 220 220 380 380 280" stroke="#fff" stroke-opacity="0.55" stroke-width="10" fill="none"/>
+          <path d="M0 60H360M0 140H360M0 220H360M0 300H360M0 380H360M0 460H360M60 0V480M140 0V480M220 0V480M300 0V480" stroke="#fff" stroke-opacity="0.22" stroke-width="2" fill="none"/>
         </g>
         <clipPath id="panel"><rect x="14" y="14" width="332" height="452" rx="40"/></clipPath>
-        <filter id="glass" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
-          <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="map"/>
-          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="soft"/>
+        <filter id="glass" filterUnits="userSpaceOnUse" x="14" y="14" width="332" height="452" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="soft"/>
+          <feImage id="map" x="14" y="14" width="332" height="452" result="map"/>
           <feColorMatrix in="soft" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r0"/>
           <feColorMatrix in="soft" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g0"/>
           <feColorMatrix in="soft" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b0"/>
-          <feDisplacementMap in="r0" in2="map" scale="64" xChannelSelector="R" yChannelSelector="G" result="r1"/>
-          <feDisplacementMap in="g0" in2="map" scale="48" xChannelSelector="R" yChannelSelector="G" result="g1"/>
-          <feDisplacementMap in="b0" in2="map" scale="32" xChannelSelector="R" yChannelSelector="G" result="b1"/>
+          <feDisplacementMap data-scale="1.08" in="r0" in2="map" xChannelSelector="R" yChannelSelector="G" result="r1"/>
+          <feDisplacementMap data-scale="1" in="g0" in2="map" xChannelSelector="R" yChannelSelector="G" result="g1"/>
+          <feDisplacementMap data-scale="0.92" in="b0" in2="map" xChannelSelector="R" yChannelSelector="G" result="b1"/>
           <feBlend in="r1" in2="g1" mode="screen" result="rg"/>
           <feBlend in="rg" in2="b1" mode="screen"/>
         </filter>
