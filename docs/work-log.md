@@ -47,3 +47,10 @@
 - `popup.html`, `popup.ts`, `manifest.json`의 `default_popup`, `build.mjs`의 popup 엔트리를 제거했다. 테스트용 배경 장면은 옮기지 않았다.
 - 확인: `npm run build` 통과. 줄무늬 배경의 로컬 테스트 페이지에 번들 `content.js`를 로드해 패널 표시와 굴절을 눈으로 확인했다. 실제 확장으로 YouTube/Instagram에 올려 아이콘 클릭 토글하는 것은 확인하지 못했다.
 - 커밋·PR은 최종 허가 전이라 하지 않았다.
+- 수정: 아이콘 클릭 시 `Could not establish connection. Receiving end does not exist.` 오류가 발생했다. 확장을 설치·새로고침하기 전에 열린 탭에는 content script가 없어 메시지를 받을 곳이 없기 때문이다. `background.ts`에서 전송이 실패하면 `chrome.scripting.executeScript`로 `content.js`를 주입하고 다시 보내며(`scripting` 권한 추가), 대상 사이트가 아닌 탭에서는 오류를 무시한다. PR #11은 이 문제로 닫고 수정 후 다시 올린다.
+- 대상 사이트 제한 해제: 추후 설정으로 대상을 고를 수 있게 하려고 `manifest.json`의 `host_permissions`와 content script `matches`를 `<all_urls>`로 바꿨다. CLAUDE.md의 대상 사이트 설명도 맞췄다.
+- 글라스 스타일 조정(macOS 리퀴드 글라스 참고): 배경의 흰색 그라디언트를 거의 투명한 `rgba(255,255,255,0.03)`으로 바꾸고 `saturate(1.3)`을 더해 뒤 화면 색이 살아 있게 했다. 테두리는 불투명도를 낮추고(0.9/0.6 → 0.4/0.22), 그림자는 옅게, 위쪽 안쪽 하이라이트 1px을 더했다.
+- 작업 중 제거했던 `popup.ts`, `popup.html`이 추적되지 않는 파일로 되살아나 타입체크가 충돌해 다시 삭제했다.
+- 블러·다크 톤 조정: `backdrop-filter`에 `blur(10px)`를 굴절 필터 앞에 추가하고, 배경을 어두운 반투명(`rgba(16,18,28,0.5)`)으로 바꿨다.
+- 색 중간값 조정: 배경이 너무 어둡고 테두리가 너무 밝아, 배경을 `rgba(28,31,44,0.3)`으로 밝히고 테두리 불투명도를 0.24/0.02/0.13, 위쪽 하이라이트를 0.08로 낮췄다.
+- 블러 강도를 사용자가 `blur(20px)`로 직접 조정했다.

@@ -2,13 +2,13 @@
   "manifest_version": 3,
   "name": "Why Do This",
   "version": "0.1.0",
-  "description": "의미 없이 YouTube/Instagram에 들어가는 습관을 줄여주는 확장 프로그램",
+  "description": "왜 그 페이지에 들어가려는 건가요?",
   "permissions": [
-    "storage"
+    "storage",
+    "scripting"
   ],
   "host_permissions": [
-    "https://*.youtube.com/*",
-    "https://*.instagram.com/*"
+    "<all_urls>"
   ],
   "background": {
     "service_worker": "background.js",
@@ -17,8 +17,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://*.youtube.com/*",
-        "https://*.instagram.com/*"
+        "<all_urls>"
       ],
       "js": [
         "content.js"

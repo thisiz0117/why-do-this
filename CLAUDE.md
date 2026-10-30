@@ -16,13 +16,13 @@ PC Chrome에서 YouTube/Instagram에 의미 없이 접속해 시간을 낭비하
 
 - TypeScript (strict) + Chrome Extension Manifest V3
 - esbuild 번들, `tsc --noEmit` 타입체크
-- 대상 사이트: `*.youtube.com`, `*.instagram.com`
+- 대상 사이트: 제한 없음(`<all_urls>`). 추후 설정으로 대상을 고를 수 있게 할 예정
 - 빌드 결과물(`dist/`)만 Chrome에 올린다.
 
 ## 구조
 
 - `src/background.ts` — service worker (아이콘 클릭 시 content script에 토글 메시지 전송)
-- `src/content.ts` — 대상 사이트에 주입되는 content script (리퀴드 글라스 오버레이 패널)
+- `src/content.ts` — 모든 사이트에 주입되는 content script (리퀴드 글라스 오버레이 패널)
 - `public/` — `manifest.json` 등 정적 파일 (빌드 시 `dist/`로 복사)
 - `build.mjs` — esbuild 빌드 스크립트
 - `.github/workflows/release.yml` — 태그 기반 배포
