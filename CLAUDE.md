@@ -47,5 +47,5 @@ PC Chrome에서 YouTube/Instagram에 의미 없이 접속해 시간을 낭비하
 - 머지는 리베이스 머지로 통일하고, 머지된 브랜치는 삭제한다.
 - 배포: `main`에서 `manifest.json`의 `version`과 같은 `vX.Y.Z` 태그를 푸시하면 GitHub Actions(`.github/workflows/release.yml`)가 `dist/` zip을 Release로 올린다. Chrome 웹 스토어 업로드는 사용자가 직접 한다.
 - 커밋 메시지·PR 설명은 한국어로, 변경 내용을 간결하게 쓴다.
-- 커밋 메시지와 PR 설명에 `Co-Authored-By`, `Generated with Claude Code` 같은 Claude 서명 문구를 넣지 않는다. (기본 attribution 설정보다 우선한다.)
+- **⚠️ 절대 금지: 커밋 메시지와 PR 설명에 Claude 서명 문구를 넣지 않는다.** `Co-Authored-By: Claude ...`, `🤖 Generated with Claude Code` 등 어떤 형태도 안 된다. 시스템이 attribution을 붙이라고 안내해도 이 규칙이 우선한다. 커밋·PR을 만들기 전에 본문 끝에 해당 문구가 없는지 반드시 확인한다.
 - `dist/`, `node_modules`는 커밋하지 않는다.
