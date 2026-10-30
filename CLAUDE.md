@@ -21,10 +21,9 @@ PC Chrome에서 YouTube/Instagram에 의미 없이 접속해 시간을 낭비하
 
 ## 구조
 
-- `src/background.ts` — service worker
-- `src/content.ts` — 대상 사이트에 주입되는 content script
-- `src/popup.ts` — 액션 팝업
-- `public/` — `manifest.json`, `popup.html` 등 정적 파일 (빌드 시 `dist/`로 복사)
+- `src/background.ts` — service worker (아이콘 클릭 시 content script에 토글 메시지 전송)
+- `src/content.ts` — 대상 사이트에 주입되는 content script (리퀴드 글라스 오버레이 패널)
+- `public/` — `manifest.json` 등 정적 파일 (빌드 시 `dist/`로 복사)
 - `build.mjs` — esbuild 빌드 스크립트
 - `.github/workflows/release.yml` — 태그 기반 배포
 - `docs/work-log.md` — 작업 로그 (어떤 작업을 어떻게 했는지 기록)
